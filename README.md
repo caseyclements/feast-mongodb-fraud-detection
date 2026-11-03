@@ -7,29 +7,51 @@ A hands-on example pipeline that combines **Django** + **django-mongodb-backend*
 - A simple z-score model (`training/train_model.py`) is trained on historical features pulled from Feast.
 - Features are materialized into MongoDB via `feast materialize`, and a Django view (`transactions/views.py`) scores transactions in real time by looking up each user's latest materialized features.
 
-# .env file
+## Requirements
 
-```
-# Django
-# To generate your secret key via shell with: python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
-DJANGO_SECRET_KEY=your-secret-key-here
+- Python 3.12+
+- A MongoDB Atlas cluster
 
-# MongoDB
-MONGODB_URI=mongodb+srv://<username>:<password>@<cluster-url>
-MONGODB_DB_NAME=fraud_detection
-```
 ## Quickstart
+
+### Create a virtual environment and install dependencies
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+```
 
-# Create a .env file with SECRET_KEY, MONGODB_URI, and DB_NAME (see tutorial.md)
+### Create a .env file
+Generate a secret key with: 
 
-# The `feast` CLI reads MONGODB_URI and DB_NAME from the environment.
+```bash
+python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+```
+
+Create `.env` in the project root and put the variable values in.
+
+```bash
+SECRET_KEY='your-secret-key-here'
+MONGODB_URI='mongodb+srv://<username>:<password>@<cluster-url>'
+DB_NAME='fraud_detection'
+```
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+### Load `.env` into shell
+Django will read the .env file but `Feast` reads the environment variables.
+
+```bash
 set -a; source .env; set +a
+```
+### Run the pipeline
 
+```bash
 python data/generate_transactions.py
 python manage.py migrate
 python manage.py load_transactions
@@ -46,7 +68,7 @@ cd training && python train_model.py && cd ..
 python manage.py runserver
 ```
 
-Then request a fraud score:
+### Request a fraud score:
 
 ```bash
 curl http://127.0.0.1:8000/score/2/
