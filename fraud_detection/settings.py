@@ -25,7 +25,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DJANGO_SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -83,7 +83,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django_mongodb_backend',
         'HOST': os.getenv("MONGODB_URI"),
-        'NAME': os.getenv("DB_NAME"),
+        'NAME': os.getenv("MONGODB_DB_NAME"),
     },
 }
 

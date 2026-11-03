@@ -25,9 +25,9 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-# Create a .env file with SECRET_KEY, MONGODB_URI, and DB_NAME (see tutorial.md)
+# Create a .env file with DJANGO_SECRET_KEY, MONGODB_URI, and MONGODB_DB_NAME (see the ".env file" section above)
 
-# The `feast` CLI reads MONGODB_URI and DB_NAME from the environment.
+# The `feast` CLI reads MONGODB_URI and MONGODB_DB_NAME from the environment.
 set -a; source .env; set +a
 
 python data/generate_transactions.py

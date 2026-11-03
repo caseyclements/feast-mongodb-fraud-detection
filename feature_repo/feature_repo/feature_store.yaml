@@ -9,7 +9,7 @@ online_store:
   type: mongodb
   connection_string: ${MONGODB_URI}
   # Same database Django writes to, so the online store and the transaction
-  # collection live side by side. Must match DB_NAME in .env.
-  database_name: ${DB_NAME}
+  # collection live side by side. Must match MONGODB_DB_NAME in .env.
+  database_name: ${MONGODB_DB_NAME}
 
 entity_key_serialization_version: 3
