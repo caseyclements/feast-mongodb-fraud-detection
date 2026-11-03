@@ -14,6 +14,7 @@ TRANSACTIONS_PARQUET_FILE = (
 )
 
 transaction_source = FileSource(
+    name="transaction_source",
     path=str(TRANSACTIONS_PARQUET_FILE),
     timestamp_field="event_timestamp",
     created_timestamp_column="created_timestamp",
